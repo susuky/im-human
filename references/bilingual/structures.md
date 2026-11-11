@@ -296,6 +296,8 @@
 
 **模式**：推論型模型為了避免話說太滿，每講一個方法就先花兩句強調「這只解決了 A，沒解決 B」「A 與 B 是兩碼事」「單靠 X 並不能保證 Y」。
 
+依 `SKILL.md` A1 檢查整段意圖：不替未出現的質疑辯解，不列無關的未做事項，不自行加設驗證或排名標準。純粹防禦的句子整句刪除，不換詞重寫或搬到表格、附註、摺疊區及文末的「限制與風險」。
+
 ```
 ❌ 這只回答了讀取延遲的問題，並沒有解決寫入鎖死。讀取與寫入是兩件不同的事，單靠快取並不能保證系統穩定。
 ❌ Switching to Redis only addresses read latency; it does not solve write contention. Reads and writes are two distinct mechanisms, and relying solely on caching cannot guarantee stability.
@@ -305,6 +307,18 @@
 ✅ 換成 Redis 能先壓低讀取延遲；若同時遇到寫入爆量，前面還要再接一層佇列緩衝。
 ✅ Redis cuts read latency right away. If you also hit write spikes during peak traffic, pair it with a write queue.
 ```
+
+使用者只要求比較技能用途與規則時，下面三種句子直接刪除：
+
+| 繁中反例 | English counterexample |
+|---|---|
+| ❌ 不能拿分數直接判定文章品質。 | ❌ You cannot judge writing quality directly from the score. |
+| ❌ 本次未修改檔案，也未做模型輸出的 A/B 測試。 | ❌ No files were changed, and no A/B tests of model outputs were run. |
+| ❌ 尚不能代表實際輸出效果排名。 | ❌ This does not establish a ranking of actual output quality. |
+
+直接報告看到的差異，結論與證據對齊後就停。例如：✅「這份規則涵蓋更多教材情境。」／✅ “These rules cover more teaching scenarios.” 使用者問到風險、缺漏或工作狀態時，直接回答該項事實。
+
+被指出問題後直接修正，不再補 ❌「不過必要限制仍須保留。」／❌ “But necessary caveats must still be retained.” 送出前檢查正文、表格、附註與最後一段。
 
 ## 22. 監視器看圖報時腔（Surveillance / Pixel-Reporting Captioning）
 
