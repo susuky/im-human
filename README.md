@@ -108,8 +108,9 @@ $im-human 讀取這份逐字稿與影格，整理成給學員複習的圖文教�
 改完稿或批次產出教材後，可以用內建的 Python 腳本（零外部依賴，僅需 Python 3 標準庫）做機械回歸檢查，把漏網的「行銷小編詞、驗屍報告腔、防禦說教腔、看圖報時腔、中國大陸用語、句型模具連發」一次抓出來：
 
 ```bash
-# 掃描單一或多個 UTF-8 文字檔
+# 掃描單檔、多檔、資料夾或萬用字元（UTF-8）
 python scripts/audit_ai_flavor.py README.md SKILL.md
+python scripts/audit_ai_flavor.py docs/*.md
 
 # 輸出完整 JSON 報告（含命中類別、行號、扣分與原文片段）
 python scripts/audit_ai_flavor.py README.md --json
@@ -131,6 +132,8 @@ python scripts/audit_ai_flavor.py README.md --fail-on-review
 | [`references/tw/taiwan-localization.md`](references/tw/taiwan-localization.md) | 台灣日常與工程慣用詞彙對照表（清除「視頻、質量、信息、默認、優化」等詞）與全形標點規範。 |
 | [`references/tw/humanize.md`](references/tw/humanize.md) | 如何擺脫「每句都正確、整篇卻像規格書」的溫吞感，寫出有節奏與判斷力的文字。 |
 | [`references/tw/scenes.md`](references/tw/scenes.md) | 技術文件、教學講義、工程 PR、商務信件、社群貼文等不同場景的語氣刻度。 |
-| [`references/tw/examples.md`](references/tw/examples.md) | 各場景的原稿診斷與改寫前後完整範例。 |
-| [`references/bilingual/operation-manual.md`](references/bilingual/operation-manual.md) | 英文寫作去 AI 味規則（封殺 `delve`, `leverage`, `testament to` 等詞）與中英混排原則。 |
-| [`scripts/audit_ai_flavor.py`](scripts/audit_ai_flavor.py) | 繁中 AI 痕跡與驗屍報告腔自動化掃描腳本。 |
+| [`references/tw/examples.md`](references/tw/examples.md) | 各場景的原稿診斷與改寫前後完整範例（含診斷標註模式）。 |
+| [`references/tw/protected-list.md`](references/tw/protected-list.md) | 五類保護對象、誤殺防護表與回讀核對程序。 |
+| [`references/bilingual/operation-manual.md`](references/bilingual/operation-manual.md) | 進階長文編修（`bounded`／`in-place`／二次審稿）與中英雙語細則，搭配 [`structures.md`](references/bilingual/structures.md)、[`severity.md`](references/bilingual/severity.md)、[`scene-packs.md`](references/bilingual/scene-packs.md) 與 [`phrases-en.md`](references/bilingual/phrases-en.md)。 |
+| [`prompts/`](prompts/) | 可直接貼入 ChatGPT Custom Instructions（≤1500 字短版）與 Claude／Codex `AGENTS.md` 的自訂指令模板。 |
+| [`scripts/audit_ai_flavor.py`](scripts/audit_ai_flavor.py) | 繁中／英文 AI 痕跡、驗屍報告腔、簡體／大陸用語殘留與標點掃描腳本。 |

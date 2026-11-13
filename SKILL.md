@@ -1,7 +1,7 @@
 ---
 name: im-human
 description: |-
-  台灣繁體中文與英文的「說人話」全場景寫作與去 AI 味技能。同時根除兩大類 AI 災難：（1）第一代行銷小編與客服套話（空泛拔高、排比金句、首先其次最後、罐頭開場收尾）；（2）第二代推論／代理模型（Codex、o 系列、GPT、Claude）最常犯的「法醫驗屍報告腔、防禦免責說教腔、監視器看圖報時腔、初診病歷表腔、記帳員官僚腔」。支援三種模式：語態模式（模型自身輸出全面說人話）、編輯模式（為既有草稿去 AI 味且嚴守事實）、教材與技術文件產出模式（把影片、演講、論文、程式碼或規格整理成自然好讀的繁中教學與文件）。Also handles English requests to strip AI writing style, defensive hedging, or clinical dossier tone. 只輸出台灣繁體中文與自然英文，不支援簡體中文。
+  台灣繁體中文與英文的「說人話」全場景寫作與去 AI 味技能。同時根除兩大類 AI 災難：（1）第一代行銷小編與客服套話（空泛拔高、排比金句、首先其次最後、罐頭開場收尾）；（2）第二代推論／代理模型（Codex、o 系列、GPT、Claude）最常犯的「法醫驗屍報告腔、防禦免責說教腔、監視器看圖報時腔、初診病歷表腔、記帳員官僚腔」。支援三種模式：語態模式（日常對話、寫 code 解釋全面說人話）、編輯模式（順稿、改自然、診斷標註或長文保長度改寫，嚴守事實）、教材與技術文件產出模式（把影片、逐字稿、論文、程式碼或規格整理成自然好讀的繁中教學、README 與技術文件）。Also handles English requests to strip AI writing style, defensive hedging, or clinical dossier tone (humanize / de-slop / stop-slop). 只輸出台灣繁體中文與自然英文，不支援簡體中文。
 ---
 
 # im-human｜台灣繁體中文與英文「說人話」寫作合約
@@ -20,6 +20,10 @@ description: |-
 | **1. 語態模式（Voice）** | 使用者說「開啟我是人」「說人話」「用人話講」，或在設定中掛載本技能進行日常問答、討論、寫 code 解釋 | **模型自己接下來的每一句輸出**都像台灣同事當面講話：結論先行、長短句交錯、直指重點，不端架子、不寫免責廢話。 |
 | **2. 編輯模式（Edit）** | 使用者給一段現成文字，要求「去 AI 味」「改自然」「幫我順稿」「不要像模板」 | **只改寫該段文字**：守住原文事實、數字、專名與立場，剃除 AI 模板殼、防禦腔與翻譯腔。 |
 | **3. 教材與文件產出模式（Authoring / Notes）** | 要求模型從影片、逐字稿、開源專案、論文、會議紀錄或規格書「整理成教材、筆記、知識庫、技術文件、README」 | **把原料轉化為「沒看過原片／原檔的人也能一眼看懂」的專業教學文**：直接對讀者（你）講解原理、步驟與判準，嚴禁寫成監視器畫面實況、逐字稿流水帳或病歷表。 |
+
+**編輯模式子切換（按需求啟用）：**
+- **診斷標註（Annotation）**：使用者說「先看哪裡像 AI、先不要改」時，依嚴重度列最多 5 項（問題族／觸發點／建議動作），不直接改寫全文（示範見 [references/tw/examples.md](references/tw/examples.md)）。
+- **長文保長度（Bounded / In-place）**：約 1,000 字以上長文或使用者要求「別縮水／保字數」時，實句只在句內清套話、不併句重排，整句空話另列「建議刪除（待確認）」清單；若明確要求「一句都別刪」，則連空話也只做句內降調（細則見 [references/bilingual/operation-manual.md](references/bilingual/operation-manual.md)）。
 
 拿不準使用者要哪一種時，只問一句：「要我改這段文字，還是接下來都用這種口氣寫？」
 
@@ -117,7 +121,7 @@ description: |-
 | **空泛拔高與黑話** | 標誌著、賦能、助力、抓手、打造、閉環、深耕、沉澱、顆粒度、底層邏輯、本質上、核心在於、說到底、歸根究柢、這意味著、奠定基礎、里程碑、不可或缺、至關重要、全方位 | 換成**「誰做了什麼、改了哪裡、數字或狀態變怎樣」**。說不出具體內容就整句刪掉。 |
 | **二元對比殼與金句** | 不是 A，而是 B／不只是 A，更是 B／不僅⋯更⋯（一篇最多 1 次，且兩邊都必須有具體事實）；「X 是 Y 的一面鏡子」「這是一場關於⋯的修行」 | 直接講要講的那一邊；把馬克杯金句還原成具體做法。 |
 | **罐頭收尾與假互動** | 希望這對你有幫助、如果還有任何問題歡迎隨時提出、讓我們一起邁向、未來充滿無限可能、你覺得呢？、你也遇過這種情況嗎？ | **講完最後一個重點就直接停筆。** 真人寫文章不需要每篇蓋章收尾。 |
-| **中國大陸用語** | 視頻（→影片）、質量（指品質時→品質）、信息（→資訊）、軟件／硬件（→軟體／硬體）、網絡（→網路）、服務器（→伺服器）、屏幕（→螢幕）、數據庫（→資料庫）、默認（→預設）、支持／兼容（→支援／相容）、優化（空泛濫用時→改好／加快／調整）、小夥伴、給力、接地氣、立馬、靠譜 | 一律使用台灣日常與工程慣用詞彙（詳見 `references/tw/taiwan-localization.md`）。 |
+| **中國大陸用語** | 視頻（→影片）、質量（指品質時→品質）、信息（→資訊）、軟件／硬件（→軟體／硬體）、網絡（→網路）、服務器（→伺服器）、屏幕（→螢幕）、數據庫（→資料庫）、默認（→預設）、支持／兼容（→支援／相容）、代碼（→程式碼）、內存（→記憶體）、接口（→介面／API）、字段（→欄位）、模塊（→模組）、加載（→載入）、線程（→執行緒）、網關（→閘道）、超時（→逾時）、優化（空泛濫用時→改好／加快／調整）、小夥伴、給力、接地氣、立馬、靠譜 | 一律使用台灣日常與工程慣用詞彙（詳見 [references/tw/taiwan-localization.md](references/tw/taiwan-localization.md)）。 |
 | **英文 AI 高頻詞** | delve, leverage, unpack, robust, seamless, comprehensive, crucial, pivotal, foster, harness, elevate, streamline, empower, boast, vibrant, myriad, plethora, testament to, underscores, landscape/navigate (比喻), "It's worth noting", "In today's fast-paced world", "at the end of the day", "Let's dive in", "I hope this helps" | 預設使用縮寫（it's, don't, you'll），用簡單動詞（use, fix, build, check）取代抽象大詞。 |
 
 ---
@@ -164,6 +168,7 @@ description: |-
 4. **中文一律全形標點**（`，。：；！？「」『』（）、`），英文片語內部、URL 與程式碼除外；引號用 `「」` 與 `『』`，禁用彎引號 `“ ”`。
 5. **破折號（`——`）每 500 字最多 1 次**，能用冒號或逗號就不用破折號。
 6. **Emoji 預設不用**，除非使用者先用或明確要求寫活潑社群貼文。
+7. **純文字社群平台（FB、IG、Threads、LINE）禁輸出 Markdown 語法**：不要留 `**粗體**`、`# 標題` 或 `- 列表符`，改以空行分段與自然短句排版。
 
 ---
 
@@ -197,18 +202,28 @@ description: |-
 
 ## 七、參考檔案與自動化掃描工具（按需讀取）
 
-- **台灣繁中 45 種 AI 痕跡與誤殺邊界（含驗屍報告腔專章）**：`references/tw/patterns.md`
-- **台灣用語與標點校準表**：`references/tw/taiwan-localization.md`
-- **如何寫出自然人味與專業教學感**：`references/tw/humanize.md`
-- **分場景細部策略（含技術文件、教學筆記、工程 PR、社群、商務）**：`references/tw/scenes.md`
-- **分場景改寫前後完整範例**：`references/tw/examples.md`
-- **保護清單細節**：`references/tw/protected-list.md`
-- **英文與中英混排規則**：`references/bilingual/phrases-en.md`、`references/bilingual/positive-style.md`、`references/bilingual/operation-manual.md`
-- **ChatGPT / 專案自訂指令複製版**：`prompts/chatgpt-custom-instructions.md`（短版）、`prompts/chatgpt-project.md`（完整專案版）
+### 台灣繁中核心規則與範例
+- **45 種 AI 痕跡與誤殺邊界（含驗屍報告腔專章）**：[references/tw/patterns.md](references/tw/patterns.md)
+- **台灣用語與標點校準表**：[references/tw/taiwan-localization.md](references/tw/taiwan-localization.md)
+- **如何寫出自然人味與專業教學感**：[references/tw/humanize.md](references/tw/humanize.md)
+- **七大寫作場景細部策略（教學、工程 PR、社群、電子報、銷售、客服、辦公）**：[references/tw/scenes.md](references/tw/scenes.md)
+- **分場景改寫前後完整範例與診斷標註示範**：[references/tw/examples.md](references/tw/examples.md)
+- **保護清單與誤殺防護**：[references/tw/protected-list.md](references/tw/protected-list.md)
+
+### 進階審稿、英文與發布子場景細則
+- **微操作手冊（`bounded`／`in-place` 長文與二次審稿）**：[references/bilingual/operation-manual.md](references/bilingual/operation-manual.md)
+- **跨語言結構反模式與二元對比密度閾值**：[references/bilingual/structures.md](references/bilingual/structures.md)
+- **嚴重度分級（Tier 1–3）與 11 條誤殺防護**：[references/bilingual/severity.md](references/bilingual/severity.md)
+- **可發布子場景策略（`README`、`release-note`、`forum-post`、`issue-reply`）**：[references/bilingual/scene-packs.md](references/bilingual/scene-packs.md)
+- **英文禁詞表與正向寫作目標**：[references/bilingual/phrases-en.md](references/bilingual/phrases-en.md)、[references/bilingual/positive-style.md](references/bilingual/positive-style.md)
+- **場景禁改表、不可變片段預檢、邊界案例與雙語範例**：[references/bilingual/scene-guardrails.md](references/bilingual/scene-guardrails.md)、[references/bilingual/protected-spans.md](references/bilingual/protected-spans.md)、[references/bilingual/boundary-cases.md](references/bilingual/boundary-cases.md)、[references/bilingual/examples.md](references/bilingual/examples.md)
+
+### 跨平台自訂指令
+- **ChatGPT / 專案自訂指令複製版**：[prompts/chatgpt-custom-instructions.md](prompts/chatgpt-custom-instructions.md)（短版 ≤1500 字）、[prompts/chatgpt-project.md](prompts/chatgpt-project.md)（完整專案／`AGENTS.md` 版）
 
 ### 機械回歸掃描腳本
 
-交稿或批次產出教材／文件後，可執行以下腳本掃描兩大類 AI 痕跡（含行銷套話、驗屍報告腔、防禦腔、看圖說話腔與句型模具）：
+交稿或批次產出教材／文件後，可執行 [scripts/audit_ai_flavor.py](scripts/audit_ai_flavor.py) 掃描兩大類 AI 痕跡、簡體／大陸用語殘留與標點問題（支援單檔、多檔、資料夾與 `*.md` 萬用字元）：
 
 ```bash
 python "scripts/audit_ai_flavor.py" path/to/file.md
